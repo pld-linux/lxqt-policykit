@@ -1,23 +1,23 @@
 #
 # Conditional build:
 #
-%define		qtver		4.8.5
+%define		qtver		5.3.1
 
 Summary:	lxqt-policykit
 Name:		lxqt-policykit
-Version:	0.7.0
-Release:	0.1
+Version:	0.8.0
+Release:	0.2
 License:	GPLv2 and LGPL-2.1+
 Group:		X11/Applications
-Source0:	http://lxqt.org/downloads/lxqt/0.7.0/%{name}-%{version}.tar.xz
-# Source0-md5:	104b4c8272d256b539b09fe85202f7f0
+Source0:	http://lxqt.org/downloads/lxqt/%{version}/%{name}-%{version}.tar.xz
+# Source0-md5:	c35c7f466e79142d6ee83e234a517f35
 URL:		http://www.lxqt.org/
 BuildRequires:	cmake >= 2.8.3
-BuildRequires:	liblxqt-devel >= 0.7.0
-BuildRequires:	libqtxdg-devel >= 0.5.3
+BuildRequires:	liblxqt-devel >= 0.8.0
+BuildRequires:	libqtxdg-devel >= 1.0.0
 BuildRequires:	polkit-devel
-BuildRequires:	polkit-qt-1-agent-devel
-BuildRequires:	polkit-qt-1-devel
+BuildRequires:	polkit-qt5-1-devel
+BuildRequires:	polkit-qt5-1-gui-devel
 BuildRequires:	xz-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -25,13 +25,14 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 lxqt-policykit.
 
 %prep
-%setup -q -c %{name}-%{version}
+%setup -q
 
 %build
 install -d build
 cd build
 %cmake \
-	../
+    -DUSE_QT5=ON \
+    ../
 
 %{__make}
 
